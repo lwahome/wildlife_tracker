@@ -1,28 +1,9 @@
-mport org.sql2o.Sql2o;
-
-import java.net.URI;
-import java.net.URISyntaxException;
+import org.sql2o.Sql2o;
 
 public class DB {
-    private static URI dbUri;
-    public static Sql2o sql2o;
-
-    static {
-        try {
-            if (System.getenv("DATABASE_URL") == null) {
-                dbUri = new URI("postgres://kosgei:12345678@localhost:5432/wildlife_tracker");
-            } else {
-                dbUri = new URI(System.getenv("DATABASE_URL"));
-            }
-            int port = dbUri.getPort();
-            String host = dbUri.getHost();
-            String path = dbUri.getPath();
-            String username = (dbUri.getUserInfo() == null) ? null : dbUri.getUserInfo().split(":")[0];
-            String password = (dbUri.getUserInfo() == null) ? null : dbUri.getUserInfo().split(":")[1];
-            sql2o = new Sql2o("jdbc:postgresql://" + host + ":" + port + path, username, password);
-
-        } catch (URISyntaxException e) {
-
-        }
-    }
+    //use the line below if you want to run locally replacing user with db username and pass with db password
+//    public static Sql2o sql2o=new Sql2o("jdbc:postgresql://localhost:5432/wildlife_tracker", "wangui", "33234159");
+    // The line below runs app on heroku comment the line below if you want to run your app locally these are my
+    // credentials so they  will not work for you
+    public static Sql2o sql2o = new Sql2o( "jdbc:postgresql://ec2-34-200-72-77.compute-1.amazonaws.com:5432/dbdm5s1n8hejg", "lwkrvliubcpfda", "830bc954504472192aa7d9be1b7c1b4a1e5e06e0a1acb70d3507660c180bf5da");
 }
